@@ -1,5 +1,6 @@
 use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
+use std::collections::BinaryHeap;
 
 pub fn solution_a() -> i32 {
     let file = File::open("inputs/1").unwrap();
@@ -23,4 +24,26 @@ pub fn solution_a() -> i32 {
     return max;
 }
 
-pub fn solution_b() ->
+
+pub fn solution_b() -> i32 {
+    let file = File::open("inputs/1_test").unwrap();
+    let reader = BufReader::new(file);
+
+    let mut heap = BinaryHeap::new();
+    let mut sum = 0;
+
+    for line in reader.lines() {
+        let line = line.unwrap();
+        if line.is_empty() {
+            heap.push(sum);
+            sum = 0;
+            continue;
+        }
+        sum += line.parse::<i32>().unwrap();
+    }
+    heap.push(sum);
+
+    let (a, b, c) = (heap.pop().unwrap(), heap.pop().unwrap(), heap.pop().unwrap());
+    return a + b + c;
+
+}
