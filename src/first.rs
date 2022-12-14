@@ -26,7 +26,7 @@ pub fn solution_a() -> i32 {
 
 
 pub fn solution_b() -> i32 {
-    let file = File::open("inputs/1_test").unwrap();
+    let file = File::open("inputs/1").unwrap();
     let reader = BufReader::new(file);
 
     let mut heap = BinaryHeap::new();
