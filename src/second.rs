@@ -4,10 +4,10 @@ use std::collections::HashMap;
 
 struct Shape {
     encrypted: char,
-    value: u8
+    value: u32
 }
 
-let scores = HashMap!
+
 
 impl Eq for Shape {}
 
@@ -29,15 +29,34 @@ impl Ord for Shape {
     }
 }
 
-pub fn solution_a() -> i32 {
-    let mut map:HashMap<char, u8> = HashMap::new();
-    let mut sum = 0;
+pub fn solution_a() -> u32 {
+    let scores: HashMap<char, u32> = HashMap::from([
+        ('A', 1),
+        ('B', 2),
+        ('C', 3),
+        ('X', 1),
+        ('Y', 2),
+        ('Z', 3)]);
+
+    let mut sum:u32 = 0;
 
     for line in include_str!("../inputs/2_test").lines() {
         let mut split = line.split_whitespace();
-        let (his, my) = (split.next().unwrap(), split.next().unwrap());
+        let (his, my) = (split.next().unwrap().chars().next().unwrap(), split.next().unwrap().chars().next().unwrap());
         println!("his: {}, my: {}", his, my);
+        let his = Shape{ encrypted: his, value: *scores.get(&his).unwrap() };
+        let my_value = *scores.get(&my).unwrap();
+        let my = Shape{ encrypted: my, value: my_value };
+
+        sum += my_value;
+
+        match my.cmp(&his) {
+            Ordering::Greater => sum += 6,
+            Ordering::Equal => sum += 3,
+            _ => continue
+        }
+
     }
 
-    return 0;
+    return sum;
 }
