@@ -56,10 +56,10 @@ pub fn solution_b() -> u32 {
         match (left, res) {
             ('A', 'X') => sum += 3,
             ('A', 'Y') => sum += 4,
-            ('A', 'Z') => sum += 9,
+            ('A', 'Z') => sum += 8,
             ('B', 'X') => sum += 1,
             ('B', 'Y') => sum += 5,
-            ('B', 'Z') => sum += 6,
+            ('B', 'Z') => sum += 9,
             ('C', 'X') => sum += 2,
             ('C', 'Y') => sum += 6,
             ('C', 'Z') => sum += 7,
