@@ -3,7 +3,7 @@ use std::io::{self, prelude::*, BufReader};
 use std::collections::HashSet;
 
 pub fn solution_a() -> i32 {
-    let file = File::open("inputs/3_test").unwrap();
+    let file = File::open("inputs/3").unwrap();
     let reader = BufReader::new(file);
 
     let mut sum = 0;

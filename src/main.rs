@@ -7,6 +7,6 @@ fn main() {
     // println!("Top three elves calories: {}",first::solution_b());
     // println!("Score: {}",second::solution_a());
     // println!("Score: {}",second::solution_b());
-    println!("Letter: {}",third::solution_a());
+    println!("Sum of priorities: {}",third::solution_a());
 }
 
