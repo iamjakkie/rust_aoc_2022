@@ -37,3 +37,37 @@ pub fn solution_a() -> u32 {
 
     return sum;
 }
+
+pub fn solution_b() -> u32 {
+    let file = File::open("inputs/2").unwrap();
+    let reader = BufReader::new(file);
+
+    let mut sum: u32 = 0;
+
+    for line in reader.lines() {
+        let line_u = match line {
+            Ok(l) => l,
+            Err(_) => continue
+        };
+
+        let mut split = line_u.split_whitespace();
+        let (left, res) = (split.next().unwrap().chars().next().unwrap(), split.next().unwrap().chars().next().unwrap());
+
+        match (left, res) {
+            ('A', 'X') => sum += 3,
+            ('A', 'Y') => sum += 4,
+            ('A', 'Z') => sum += 9,
+            ('B', 'X') => sum += 1,
+            ('B', 'Y') => sum += 5,
+            ('B', 'Z') => sum += 6,
+            ('C', 'X') => sum += 2,
+            ('C', 'Y') => sum += 6,
+            ('C', 'Z') => sum += 7,
+            _ => continue
+        }
+
+    }
+
+
+    return sum;
+}
