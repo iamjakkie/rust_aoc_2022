@@ -1,5 +1,6 @@
 mod first;
 mod second;
+mod third;
 
 fn main() {
     // println!("Most calories: {}",first::solution_a());
