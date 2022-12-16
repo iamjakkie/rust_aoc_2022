@@ -4,7 +4,7 @@ use std::io::{self, prelude::*, BufReader};
 use std::str::FromStr;
 
 pub fn solution_a() -> i32 {
-    let file = File::open("inputs/4_test").unwrap();
+    let file = File::open("inputs/4").unwrap();
     let reader = BufReader::new(file);
 
     let mut cnt = 0;
