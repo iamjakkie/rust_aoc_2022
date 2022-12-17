@@ -3,7 +3,7 @@ use std::io::{self, prelude::*, BufReader};
 use std::collections::HashSet;
 
 pub fn solution_a() -> i32 {
-    let file = File::open("inputs/6_test").unwrap();
+    let file = File::open("inputs/6").unwrap();
     let reader = BufReader::new(file);
     let mut cnt = 0;
     let mut unique = 0;
@@ -17,7 +17,18 @@ pub fn solution_a() -> i32 {
             cnt += 1;
             if markers.contains(&char) {
                 let ind = markers.iter().position(|&x| x == char).unwrap();
-                println!("{} {}", ind, char);
+                if ind < markers.len() {
+                    for _ in 0..=ind {
+                        markers.remove(0);
+                        unique-= 1;
+                    }
+                    markers.push(char);
+                    unique += 1;
+                } else {
+                    markers.clear();
+                    markers.push(char);
+                    unique = 1;
+                }
             } else{
                 unique += 1;
                 markers.push(char);
@@ -25,7 +36,6 @@ pub fn solution_a() -> i32 {
             if unique == 4 {
                 break;
             }
-            println!("{:?}" , markers);
         }
     }
     cnt
