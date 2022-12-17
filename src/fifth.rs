@@ -17,13 +17,11 @@ pub fn solution_a() -> String {
                 let mut split = a.split(" ");
 
                 let (number, from, to) = (split.nth(1).unwrap(), split.nth(1).unwrap(), split.nth(1).unwrap());
-                // println!("{} {} {}", number, from, to);
                 for _ in 0..number.parse::<i32>().unwrap() {
                     let mut from = from.parse::<usize>().unwrap();
                     let mut to = to.parse::<usize>().unwrap();
                     let mut to_move = boxes[from-1].remove(0);
                     boxes[to-1].insert(0, to_move);
-                    // println!("{:?}", boxes);
                 }
             },
             _ => {
@@ -32,25 +30,15 @@ pub fn solution_a() -> String {
                 let mut cnt = 0;
                 while i < len {
                     let potential_box = line[i..i+1].to_string();
-                    // println!("chunk: {}", potential_box);
                     if (cnt+1) > boxes.len() {
                         boxes.push(Vec::new());
-                        // println!("push");
                     }
                     if potential_box!= " " {
-                        // println!("{}", potential_box);
                         boxes[cnt].push(line.chars().nth(i).unwrap());
                     }
                     i += 4;
                     cnt += 1;
                 }
-                // println!("{:?}", boxes);
-                // [['N'], [], ['C'], [], [], [], [], ['Q']]
-                // let clean = line.trim().replace("[", "").replace("]", "");
-                // let clean = clean.split(" ").collect::<Vec<&str>>();
-
-                // println!("clean {:?}", clean);
-                // println!("{:?}", boxes);
             }
         }
     }
@@ -61,4 +49,8 @@ pub fn solution_a() -> String {
     }
 
     return result;
+}
+
+pub fn solution_b() -> String {
+
 }
