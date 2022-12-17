@@ -56,9 +56,9 @@ pub fn solution_a() -> String {
     }
 
     let mut result = String::new();
-    // for stack in boxes {
-    //     result.push(stack[0]);
-    // }
+    for stack in boxes {
+        result.push(stack[0]);
+    }
 
     return result;
 }
