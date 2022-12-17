@@ -11,10 +11,9 @@ pub fn solution_a() -> String {
     for line in reader.lines() {
         let line = line.unwrap();
         match line {
-            a if a.is_empty() => continue,
+            a if a.is_empty() => { println!("{:?}", boxes); },
             a if a.starts_with(" 1") => continue,
             a if a.starts_with("move") => {
-                println!("{:?}", boxes);
                 let mut split = a.split(" ");
 
                 let (number, from, to) = (split.nth(1).unwrap(), split.nth(1).unwrap(), split.nth(1).unwrap());
@@ -29,22 +28,26 @@ pub fn solution_a() -> String {
             },
             _ => {
                 let len = line.len();
-                let mut i = 0;
+                let mut i = 1;
+                let mut cnt = 0;
                 while i < len {
-                    let potential_box = line[i..i+3].trim().to_string();
+                    let potential_box = line[i..i+1].to_string();
                     // println!("chunk: {}", potential_box);
-                    // println!("{}", i%3);
-                    if (i%3+1) > boxes.len() {
+                    if (cnt+1) > boxes.len() {
                         boxes.push(Vec::new());
+                        // println!("push");
                     }
-                    if !potential_box.is_empty(){
+                    if potential_box!= " " {
                         // println!("{}", potential_box);
-                        boxes[i%3].push(line.chars().nth(i+1).unwrap());
+                        boxes[cnt].push(line.chars().nth(i).unwrap());
                     }
                     i += 4;
+                    cnt += 1;
                 }
-                let clean = line.trim().replace("[", "").replace("]", "");
-                let clean = clean.split(" ").collect::<Vec<&str>>();
+                // println!("{:?}", boxes);
+                // [['N'], [], ['C'], [], [], [], [], ['Q']]
+                // let clean = line.trim().replace("[", "").replace("]", "");
+                // let clean = clean.split(" ").collect::<Vec<&str>>();
 
                 // println!("clean {:?}", clean);
                 // println!("{:?}", boxes);
@@ -53,10 +56,9 @@ pub fn solution_a() -> String {
     }
 
     let mut result = String::new();
-
-    for stack in boxes {
-        result.push(stack[0]);
-    }
+    // for stack in boxes {
+    //     result.push(stack[0]);
+    // }
 
     return result;
 }
