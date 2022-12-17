@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 use std::collections::BinaryHeap;
 
-pub fn solution_a() -> String {
+pub fn solution_a(part:char) -> String {
     let file = File::open("inputs/5").unwrap();
     let reader = BufReader::new(file);
 
@@ -14,15 +14,33 @@ pub fn solution_a() -> String {
             a if a.is_empty() => { println!("{:?}", boxes); },
             a if a.starts_with(" 1") => continue,
             a if a.starts_with("move") => {
-                let mut split = a.split(" ");
+                match part {
+                    'a' => {
+                        let mut split = a.split(" ");
 
-                let (number, from, to) = (split.nth(1).unwrap(), split.nth(1).unwrap(), split.nth(1).unwrap());
-                for _ in 0..number.parse::<i32>().unwrap() {
-                    let mut from = from.parse::<usize>().unwrap();
-                    let mut to = to.parse::<usize>().unwrap();
-                    let mut to_move = boxes[from-1].remove(0);
-                    boxes[to-1].insert(0, to_move);
+                        let (number, from, to) = (split.nth(1).unwrap(), split.nth(1).unwrap(), split.nth(1).unwrap());
+                        for _ in 0..number.parse::<i32>().unwrap() {
+                            let mut from = from.parse::<usize>().unwrap();
+                            let mut to = to.parse::<usize>().unwrap();
+                            let mut to_move = boxes[from-1].remove(0);
+                            boxes[to-1].insert(0, to_move);
+                        }
+                    },
+                    'b' => {
+                        let mut split = a.split(" ");
+
+                        let (number, from, to) = (split.nth(1).unwrap(), split.nth(1).unwrap(), split.nth(1).unwrap());
+                        for i in 0..number.parse::<i32>().unwrap() {
+                            let mut from = from.parse::<usize>().unwrap();
+                            let mut to = to.parse::<usize>().unwrap();
+                            let mut to_move = boxes[from-1].remove(0);
+                            boxes[to-1].insert(i as usize, to_move);
+                            // boxes[to-1].push(to_move);
+                        }
+                    },
+                    _ => panic!("Invalid part"),
                 }
+
             },
             _ => {
                 let len = line.len();
@@ -42,15 +60,10 @@ pub fn solution_a() -> String {
             }
         }
     }
-
     let mut result = String::new();
     for stack in boxes {
         result.push(stack[0]);
     }
 
     return result;
-}
-
-pub fn solution_b() -> String {
-
 }
