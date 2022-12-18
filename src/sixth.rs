@@ -2,12 +2,13 @@ use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 use std::collections::HashSet;
 
-pub fn solution_a() -> i32 {
+pub fn solution(part:char) -> i32 {
     let file = File::open("inputs/6").unwrap();
     let reader = BufReader::new(file);
     let mut cnt = 0;
     let mut unique = 0;
 
+    let mut stop = match part { 'a' => 4, 'b' => 14, _ => 0 };
 
     for line in reader.lines() {
         let mut markers:Vec<char> = Vec::new();
@@ -33,7 +34,7 @@ pub fn solution_a() -> i32 {
                 unique += 1;
                 markers.push(char);
             }
-            if unique == 4 {
+            if unique == stop {
                 break;
             }
         }
