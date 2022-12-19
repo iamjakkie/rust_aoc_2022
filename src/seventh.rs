@@ -24,7 +24,7 @@ pub fn solution_a() -> i32 {
                 let mut rel_path = split.next().unwrap();
                 match rel_path {
                     ".." => {
-                        traverse_path.pop();
+                        traverse_path.remove();
                     }
                     "." => {}
                     _ => {
