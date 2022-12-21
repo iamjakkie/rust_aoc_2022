@@ -36,12 +36,12 @@ use std::io::{self, prelude::*, BufReader};
 // }
 
 pub fn solution_a() -> i32 {
-    let file = File::open("inputs/7_test").unwrap();
+    let file = File::open("inputs/7").unwrap();
     let reader = BufReader::new(file);
 
-    let mut curr_node:char = '\t';
-    let mut visited:Vec<char> = vec!['/'];
-    let mut sizes:HashMap<char, i32> = HashMap::new();
+    let mut curr_node:String = String::new();
+    let mut visited:Vec<&str> = vec![""];
+    let mut sizes:HashMap<&String, i32> = HashMap::new();
 
 
     for line in reader.lines() {
@@ -57,16 +57,17 @@ pub fn solution_a() -> i32 {
 
         match path {
             Some(path) => {
-                match path {
+                let path = String::from(path);
+                match path.as_str() {
                     "/" => {
-                        curr_node = path.parse().unwrap();
+                        curr_node = path;
                     }
                     ".." => {
-                        curr_node = visited.pop().unwrap();
+                        curr_node = visited.last_mut().unwrap().parse().unwrap();
                     },
                     _ => {
-                        curr_node = path.parse().unwrap();
-                        visited.push(curr_node);
+                        curr_node = path;
+                        visited.push(&*curr_node);
                     }
                 };
             },
@@ -74,14 +75,16 @@ pub fn solution_a() -> i32 {
                 let val = first.parse::<i32>();
                 match val {
                     Ok(val) => {
-                        for node in visited.iter() {
-                            let mut size = sizes.get_mut(node);
+                        for i in 0..visited.len() {
+                            let k = String::from(visited[i]);
+                            let mut size = sizes.get_mut(&k);
                             match size {
                                 Some(size) => {
                                     *size += val;
                                 },
                                 None => {
-                                    sizes.insert(*node, val);
+                                    let k = String::from(visited[i]).clone();
+                                    sizes.insert(&k, val);
                                 }
                             }
                         }
@@ -93,8 +96,6 @@ pub fn solution_a() -> i32 {
             },
         };
 
-        println!("curr_node: {:?}", curr_node);
-        println!("sizes: {:?}", sizes);
     }
 
     let mut size = 0;
