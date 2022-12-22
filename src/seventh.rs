@@ -40,12 +40,11 @@ pub fn solution_a() -> i32 {
     let reader = BufReader::new(file);
 
     let mut curr_node:String = String::new();
-    let mut visited:Vec<&str> = vec![""];
-    let mut sizes:HashMap<&String, i32> = HashMap::new();
+    let mut visited:Vec<String> = Vec::new();
+    let mut sizes:HashMap<String, i32> = HashMap::new();
 
 
     for line in reader.lines() {
-        println!("line: {:?}", line);
         let mut line = line.unwrap();
         let mut split = line.split(" ");
 
@@ -59,15 +58,13 @@ pub fn solution_a() -> i32 {
             Some(path) => {
                 let path = String::from(path);
                 match path.as_str() {
-                    "/" => {
-                        curr_node = path;
-                    }
                     ".." => {
-                        curr_node = visited.last_mut().unwrap().parse().unwrap();
+                        curr_node = visited.pop().unwrap();
+                        // curr_node = visited.last_mut().unwrap().parse().unwrap();
                     },
                     _ => {
                         curr_node = path;
-                        visited.push(&*curr_node);
+                        visited.push(curr_node);
                     }
                 };
             },
@@ -76,32 +73,34 @@ pub fn solution_a() -> i32 {
                 match val {
                     Ok(val) => {
                         for i in 0..visited.len() {
-                            let k = String::from(visited[i]);
+                            let k = visited[i].clone();
                             let mut size = sizes.get_mut(&k);
                             match size {
                                 Some(size) => {
                                     *size += val;
                                 },
                                 None => {
-                                    let k = String::from(visited[i]).clone();
-                                    sizes.insert(&k, val);
+                                    let k = visited[i].clone();
+                                    sizes.insert(k, val);
                                 }
                             }
                         }
                     },
                     Err(_) => {
-                        println!("Error parsing val: {:?}", second);
+                        continue;
+                        // println!("Error parsing val: {:?}", second);
                     }
                 }
             },
         };
+    println!("sizes: {:?}", sizes);
 
     }
 
     let mut size = 0;
 
     for i in sizes.values() {
-        if i < &100000 {
+        if *i <= 100000 {
             size += i;
         }
     }
