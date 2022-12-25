@@ -8,8 +8,9 @@ mod fifth;
 mod sixth;
 mod seventh;
 mod eighth;
+mod seventh_new;
 
-fn main() {
+fn main(){
     // println!("1_1: {}",first::solution_a());
     // println!("1_2: {}",first::solution_b());
     // println!("2_1: {}",second::solution_a());
