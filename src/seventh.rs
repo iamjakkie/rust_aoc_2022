@@ -11,7 +11,7 @@ struct Dir{
     parent: usize
 }
 
-pub fn solution_a() -> usize {
+fn get_dirs() -> Vec<Dir> {
     let file = File::open("inputs/7").unwrap();
     let reader = BufReader::new(file);
 
@@ -45,21 +45,44 @@ pub fn solution_a() -> usize {
                 }
             }
         } else if let Some(cap) = file_regex.captures(str){
-                    let size = &cap["size"].parse().unwrap();
-                    let mut p = curr;
-                    loop {
-                        dirs[p].size += size;
-                        if dirs[p].parent == p {
-                            break;
-                        }
-                        p = dirs[p].parent;
+            let size = &cap["size"].parse().unwrap();
+            let mut p = curr;
+            loop {
+                dirs[p].size += size;
+                if dirs[p].parent == p {
+                    break;
+                }
+                p = dirs[p].parent;
             }
         }
     }
+    dirs
+}
+
+pub fn solution_a() -> usize {
+    let dirs = get_dirs();
     dirs.iter()
         .map(|dir| dir.size)
         .filter(|size| *size <= 100000)
         .sum()
+}
+
+pub fn solution_b() -> usize{
+    let dirs = get_dirs();
+
+    let space = 70000000 - dirs[0].size;
+
+    let lacking = (30000000 - space);
+    match lacking {
+        0 => 0,
+        _ => {
+            dirs.iter()
+                .map(|dir| dir.size)
+                .filter(|size| *size > lacking)
+                .min()
+                .unwrap()
+        }
+    }
 }
 
 

@@ -23,7 +23,8 @@ fn main(){
     // println!("5_2: {}",fifth::solution_a('b'));
     // println!("6_1: {}",sixth::solution('a'));
     // println!("6_2: {}",sixth::solution('b'));
-    println!("7_1: {}",seventh::solution_a());
+    // println!("7_1: {}",seventh::solution_a());
+    println!("7_2: {}",seventh::solution_b());
 }
 
 
