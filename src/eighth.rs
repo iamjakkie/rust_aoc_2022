@@ -18,8 +18,8 @@ pub fn solution_a() -> i32 {
         area.push(area_line);
     }
 
-    let max_x = area.len();
-    let max_y = area[0].len();
+    let max_x = area.len()-1;
+    let max_y = area[0].len()-1;
 
     let mut i_x = 0;
     let mut i_y = 0;
@@ -31,7 +31,21 @@ pub fn solution_a() -> i32 {
         println!("{} {} {:?} {}", i_x, i_y, start, area[i_x][i_y]);
 
         if i_x != 0 && i_y != 0 && i_x != max_x && i_y != max_y{
-            let left = area[0..i_x]
+            let left = *area[i_x][0..i_y].iter().max().unwrap();
+            let right = *area[i_x][i_y+1..=max_y].iter().max().unwrap();
+            let up = area[0..i_x].iter().map(|x| x[i_y]).max().unwrap();
+            let down = area[i_x..=max_x].iter().map(|x| x[i_y]).max().unwrap();
+            let curr = area[i_x][i_y];
+
+            println!("curr: {} {} {} {} {}",curr, left, right, up, down);
+
+            if left < curr || right < curr || up < curr || down < curr {
+                println!("Visible");
+                visible += 1;
+            }
+
+        } else {
+            visible += 1;
         }
 
         if [i_x, i_y] == stop_point {
@@ -89,6 +103,5 @@ pub fn solution_a() -> i32 {
 
      */
 
-    println!("{:?}", area);
-    0
+    visible
 }
