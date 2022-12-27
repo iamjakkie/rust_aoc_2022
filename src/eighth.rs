@@ -27,40 +27,39 @@ pub fn solution_a() -> i32 {
     let stop_point = [(area[0].len()/2) , (area.len()/2)];
 
     loop {
-        print!("{:?} ", area[i_y][i_x]);
+        println!("{} {} {:?} {}", i_x, i_y, start, area[i_x][i_y]);
+        if [i_x, i_y] == stop_point {
+            break;
+        }
         match dir {
             0 => {
-                i_x += 1;
-                if i_x == area[i_y].len() - (1+start[0]) {
+                i_y+= 1;
+                if i_y == area[i_y].len() - 1 - start[0] {
                     dir = 1;
                 }
             },
             1 => {
-                i_y += 1;
-                if i_y == area.len() - (1+start[1])  {
+                i_x += 1;
+                if i_x == area.len() - 1 - start[1]  {
                     dir = 2;
                 }
             },
             2 => {
-                i_x -= 1;
-                if i_x == 0 {
+                i_y -= 1;
+                if i_y ==  start[0] {
                     dir = 3;
                 }
             },
             3 => {
-                println!("_{} {} {:?}_", i_x, i_y, start);
-                if [i_y, i_x] == stop_point {
-                    break;
-                }
-                if [i_y, i_x] == start {
-                    println!();
-                    i_y += 1;
-                    i_x += 1;
-                    start = [i_y, i_x];
+                if [i_x, i_y] == [start[0]+1, start[1]] {
+                    // println!();
+                    i_x = start[0] + 1;
+                    i_y = start[1] + 1;
+                    start = [i_x, i_y];
                     dir = 0;
                     continue;
                 }
-                i_y -= 1;
+                i_x -= 1;
             },
             _ => {
                 break;
