@@ -20,6 +20,54 @@ pub fn solution_a() -> i32 {
         area.push(area_line);
     }
 
+    let mut i_x = 0;
+    let mut i_y = 0;
+    let mut dir = 0; // 0 = right, 1 = down, 2 = left, 3 = up
+    let mut start = [0, 0];
+    let stop_point = [(area[0].len()/2) , (area.len()/2)];
+
+    loop {
+        print!("{:?} ", area[i_y][i_x]);
+        match dir {
+            0 => {
+                i_x += 1;
+                if i_x == area[i_y].len() - (1+start[0]) {
+                    dir = 1;
+                }
+            },
+            1 => {
+                i_y += 1;
+                if i_y == area.len() - (1+start[1])  {
+                    dir = 2;
+                }
+            },
+            2 => {
+                i_x -= 1;
+                if i_x == 0 {
+                    dir = 3;
+                }
+            },
+            3 => {
+                println!("_{} {} {:?}_", i_x, i_y, start);
+                if [i_y, i_x] == stop_point {
+                    break;
+                }
+                if [i_y, i_x] == start {
+                    println!();
+                    i_y += 1;
+                    i_x += 1;
+                    start = [i_y, i_x];
+                    dir = 0;
+                    continue;
+                }
+                i_y -= 1;
+            },
+            _ => {
+                break;
+            }
+        }
+    }
+
     /*
 
     0 0
