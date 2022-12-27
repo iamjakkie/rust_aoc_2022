@@ -7,8 +7,6 @@ pub fn solution_a() -> i32 {
     let file = File::open("inputs/8_test").unwrap();
     let reader = BufReader::new(file);
 
-    let mut lines = 0;
-    let mut cell = 0;
     let mut visible = 0;
 
     let mut area: Vec<Vec<usize>> = Vec::new();
@@ -20,6 +18,9 @@ pub fn solution_a() -> i32 {
         area.push(area_line);
     }
 
+    let max_x = area.len();
+    let max_y = area[0].len();
+
     let mut i_x = 0;
     let mut i_y = 0;
     let mut dir = 0; // 0 = right, 1 = down, 2 = left, 3 = up
@@ -28,6 +29,11 @@ pub fn solution_a() -> i32 {
 
     loop {
         println!("{} {} {:?} {}", i_x, i_y, start, area[i_x][i_y]);
+
+        if i_x != 0 && i_y != 0 && i_x != max_x && i_y != max_y{
+            let left = area[0..i_x]
+        }
+
         if [i_x, i_y] == stop_point {
             break;
         }
