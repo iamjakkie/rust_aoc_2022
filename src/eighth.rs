@@ -4,7 +4,7 @@ use std::io::{self, prelude::*, BufReader};
 
 
 pub fn solution_a() -> i32 {
-    let file = File::open("inputs/8_test").unwrap();
+    let file = File::open("inputs/8").unwrap();
     let reader = BufReader::new(file);
 
     let mut visible = 0;
@@ -28,19 +28,24 @@ pub fn solution_a() -> i32 {
     let stop_point = [(area[0].len()/2) , (area.len()/2)];
 
     loop {
-        println!("{} {} {:?} {}", i_x, i_y, start, area[i_x][i_y]);
+        // println!("{} {} {:?} {}", i_x, i_y, start, area[i_x][i_y]);
 
         if i_x != 0 && i_y != 0 && i_x != max_x && i_y != max_y{
+            // let left:Vec<usize> = area[i_x][0..i_y].iter().map(|x| *x).collect();
+            // let right:Vec<usize> = area[i_x][i_y+1..=max_y].iter().map(|x| *x).collect();
+            // let up = area[0..i_x].iter().map(|x| x[i_y]).collect::<Vec<usize>>();
+            // let down = area[i_x+1..=max_x].iter().map(|x| x[i_y]).collect::<Vec<usize>>();
+
             let left = *area[i_x][0..i_y].iter().max().unwrap();
             let right = *area[i_x][i_y+1..=max_y].iter().max().unwrap();
             let up = area[0..i_x].iter().map(|x| x[i_y]).max().unwrap();
-            let down = area[i_x..=max_x].iter().map(|x| x[i_y]).max().unwrap();
+            let down = area[i_x+1..=max_x].iter().map(|x| x[i_y]).max().unwrap();
             let curr = area[i_x][i_y];
 
-            println!("curr: {} {} {} {} {}",curr, left, right, up, down);
+            // println!("curr: {} {:?} {:?} {:?} {:?}",curr, left, right, up, down);
 
             if left < curr || right < curr || up < curr || down < curr {
-                println!("Visible");
+                // println!("Visible");
                 visible += 1;
             }
 
