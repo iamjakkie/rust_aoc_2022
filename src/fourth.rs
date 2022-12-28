@@ -9,7 +9,6 @@ pub fn solution_a() -> i32 {
 
     let mut cnt = 0;
 
-
     for line in reader.lines() {
         let line = line.unwrap();
         let mut split = line.split(",");
@@ -26,11 +25,11 @@ pub fn solution_a() -> i32 {
         let second_start: u32 = FromStr::from_str(second_start).unwrap();
         let second_end: u32 = FromStr::from_str(second_end).unwrap();
 
-        if (first_start >= second_start) & (first_end <= second_end) |
-            (second_start >= first_start) & (second_end <= first_end) {
-            cnt+=1;
+        if (first_start >= second_start) & (first_end <= second_end)
+            | (second_start >= first_start) & (second_end <= first_end)
+        {
+            cnt += 1;
         }
-
     }
 
     cnt
@@ -58,11 +57,11 @@ pub fn solution_b() -> i32 {
         let second_start: u32 = FromStr::from_str(second_start).unwrap();
         let second_end: u32 = FromStr::from_str(second_end).unwrap();
 
-        if (first_start >= second_start) & (first_start <= second_end) |
-            (second_start >= first_start) & (second_start <= first_end) {
-            cnt+=1;
+        if (first_start >= second_start) & (first_start <= second_end)
+            | (second_start >= first_start) & (second_start <= first_end)
+        {
+            cnt += 1;
         }
-
     }
 
     cnt

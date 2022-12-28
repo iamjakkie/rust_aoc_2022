@@ -1,15 +1,15 @@
 extern crate core;
 
-mod first;
-mod second;
-mod third;
-mod fourth;
-mod fifth;
-mod sixth;
-mod seventh;
 mod eighth;
+mod fifth;
+mod first;
+mod fourth;
+mod second;
+mod seventh;
+mod sixth;
+mod third;
 
-fn main(){
+fn main() {
     // println!("1_1: {}",first::solution_a());
     // println!("1_2: {}",first::solution_b());
     // println!("2_1: {}",second::solution_a());
@@ -24,9 +24,5 @@ fn main(){
     // println!("6_2: {}",sixth::solution('b'));
     // println!("7_1: {}",seventh::solution_a());
     // println!("7_2: {}",seventh::solution_b());
-    println!("8_1: {}",eighth::solution_a());
+    println!("8_1: {}", eighth::solution_a());
 }
-
-
-
-

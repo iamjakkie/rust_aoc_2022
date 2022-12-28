@@ -1,6 +1,6 @@
+use std::collections::BinaryHeap;
 use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
-use std::collections::BinaryHeap;
 
 pub fn solution_a() -> i32 {
     let file = File::open("inputs/1").unwrap();
@@ -24,7 +24,6 @@ pub fn solution_a() -> i32 {
     return max;
 }
 
-
 pub fn solution_b() -> i32 {
     let file = File::open("inputs/1").unwrap();
     let reader = BufReader::new(file);
@@ -43,7 +42,10 @@ pub fn solution_b() -> i32 {
     }
     heap.push(sum);
 
-    let (a, b, c) = (heap.pop().unwrap(), heap.pop().unwrap(), heap.pop().unwrap());
+    let (a, b, c) = (
+        heap.pop().unwrap(),
+        heap.pop().unwrap(),
+        heap.pop().unwrap(),
+    );
     return a + b + c;
-
 }

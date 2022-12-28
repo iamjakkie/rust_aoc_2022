@@ -3,11 +3,9 @@ use std::collections::HashMap;
 use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 
-
 pub fn solution_a() -> u32 {
     let file = File::open("inputs/2").unwrap();
     let reader = BufReader::new(file);
-
 
     let scores: HashMap<String, u32> = HashMap::from([
         (String::from("A X"), 4),
@@ -18,22 +16,20 @@ pub fn solution_a() -> u32 {
         (String::from("B Z"), 9),
         (String::from("C X"), 7),
         (String::from("C Y"), 2),
-        (String::from("C Z"), 6)]);
+        (String::from("C Z"), 6),
+    ]);
 
-    let mut sum:u32 = 0;
+    let mut sum: u32 = 0;
 
     for line in reader.lines() {
-
         let line_u = match line {
             Ok(l) => l,
-            Err(_) => continue
+            Err(_) => continue,
         };
 
         let total = *scores.get(&line_u).unwrap();
         sum += total;
-
     }
-
 
     return sum;
 }
@@ -47,11 +43,14 @@ pub fn solution_b() -> u32 {
     for line in reader.lines() {
         let line_u = match line {
             Ok(l) => l,
-            Err(_) => continue
+            Err(_) => continue,
         };
 
         let mut split = line_u.split_whitespace();
-        let (left, res) = (split.next().unwrap().chars().next().unwrap(), split.next().unwrap().chars().next().unwrap());
+        let (left, res) = (
+            split.next().unwrap().chars().next().unwrap(),
+            split.next().unwrap().chars().next().unwrap(),
+        );
 
         match (left, res) {
             ('A', 'X') => sum += 3,
@@ -63,11 +62,9 @@ pub fn solution_b() -> u32 {
             ('C', 'X') => sum += 2,
             ('C', 'Y') => sum += 6,
             ('C', 'Z') => sum += 7,
-            _ => continue
+            _ => continue,
         }
-
     }
-
 
     return sum;
 }
