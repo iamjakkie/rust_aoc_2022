@@ -1,22 +1,25 @@
 use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 
-
-
-pub fn solution_a() -> i32 {
+fn parse_map() -> Vec<Vec<usize>> {
     let file = File::open("inputs/8").unwrap();
     let reader = BufReader::new(file);
 
-    let mut visible = 0;
-
     let mut area: Vec<Vec<usize>> = Vec::new();
-
 
     for line in reader.lines() {
         let line = line.unwrap();
         let area_line: Vec<usize> = line.chars().map(|c| c.to_digit(10).unwrap() as usize).collect();
         area.push(area_line);
     }
+
+    area
+}
+
+pub fn solution_a() -> i32 {
+
+    let area = parse_map();
+    let mut visible = 0;
 
     let max_x = area.len()-1;
     let max_y = area[0].len()-1;
