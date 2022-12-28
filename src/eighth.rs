@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 
 fn parse_map() -> Vec<Vec<usize>> {
-    let file = File::open("inputs/8_test").unwrap();
+    let file = File::open("inputs/8").unwrap();
     let reader = BufReader::new(file);
 
     let mut area: Vec<Vec<usize>> = Vec::new();
@@ -108,18 +108,19 @@ fn calculate_scenic(
 ) -> i32 {
     let combined = vec![left, right, up, down];
 
-    let mut score = 0;
+    let mut score = 1;
 
     for dir in combined {
         let mut curr_score = 0;
         for i in dir {
-            println!("{} {}", i, curr);
             curr_score += 1;
+            // println!("{} {} {} {}", i, curr, curr_score, score);
+
             if i >= curr {
-                score *= curr_score;
                 break;
             }
         }
+        score *= curr_score;
     }
 
     score
@@ -140,9 +141,9 @@ pub fn solution_b() -> i32 {
     let stop_point = [(area[0].len() / 2), (area.len() / 2)];
 
     loop {
-        let left: Vec<usize> = area[i_x][0..i_y].iter().map(|x| *x).collect();
+        let left: Vec<usize> = area[i_x][0..i_y].iter().rev().map(|x| *x).collect();
         let right: Vec<usize> = area[i_x][i_y + 1..=max_y].iter().map(|x| *x).collect();
-        let up = area[0..i_x].iter().map(|x| x[i_y]).collect::<Vec<usize>>();
+        let up = area[0..i_x].iter().rev().map(|x| x[i_y]).collect::<Vec<usize>>();
         let down = area[i_x + 1..=max_x]
             .iter()
             .map(|x| x[i_y])
@@ -150,11 +151,13 @@ pub fn solution_b() -> i32 {
 
         let curr = area[i_x][i_y];
 
+        // println!("{} {:?} {:?} {:?} {:?}", curr, left, right, up, down);
+
         //todo skip edge
 
         let score = calculate_scenic(curr, left, right, up, down);
 
-        println!("[{},{}]={}: {}", i_x, i_y, curr, score);
+        // println!("[{},{}]={}: {}", i_x, i_y, curr, score);
 
         if score > best {
             best = score;
