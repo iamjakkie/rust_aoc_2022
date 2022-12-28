@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 
 fn parse_map() -> Vec<Vec<usize>> {
-    let file = File::open("inputs/8").unwrap();
+    let file = File::open("inputs/8_test").unwrap();
     let reader = BufReader::new(file);
 
     let mut area: Vec<Vec<usize>> = Vec::new();
@@ -96,22 +96,6 @@ pub fn solution_a() -> i32 {
         }
     }
 
-    /*
-
-    0 0
-    0 1
-    0 2
-    0 3
-    0 4
-    1 4
-    2 4
-    3 4
-    4 4
-    4 3
-    4 2
-
-     */
-
     visible
 }
 
@@ -122,12 +106,28 @@ fn calculate_scenic(
     up: Vec<usize>,
     down: Vec<usize>,
 ) -> i32 {
+    let combined = vec![left, right, up, down];
+
+    let mut score = 0;
+
+    for dir in combined {
+        let mut curr_score = 0;
+        for i in dir {
+            curr_score += 1;
+            if i > curr {
+                score *= curr_score;
+                break;
+            }
+        }
+    }
+
+    score
 }
 
 pub fn solution_b() -> i32 {
     let area = parse_map();
 
-    let best = 0;
+    let mut best = 0;
 
     let max_x = area.len() - 1;
     let max_y = area[0].len() - 1;
@@ -149,7 +149,15 @@ pub fn solution_b() -> i32 {
 
         let curr = area[i_x][i_y];
 
-        visible += 1;
+        //todo skip edge
+
+        let score = calculate_scenic(curr, left, right, up, down);
+
+        println!("[{},{}]={}: {}", i_x, i_y, curr, score);
+
+        if score > best {
+            best = score;
+        }
 
         if [i_x, i_y] == stop_point {
             break;

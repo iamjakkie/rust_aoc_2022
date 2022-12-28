@@ -24,5 +24,6 @@ fn main() {
     // println!("6_2: {}",sixth::solution('b'));
     // println!("7_1: {}",seventh::solution_a());
     // println!("7_2: {}",seventh::solution_b());
-    println!("8_1: {}", eighth::solution_a());
+    // println!("8_1: {}", eighth::solution_a());
+    println!("8_2: {}", eighth::solution_b());
 }
