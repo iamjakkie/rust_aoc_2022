@@ -113,8 +113,9 @@ fn calculate_scenic(
     for dir in combined {
         let mut curr_score = 0;
         for i in dir {
+            println!("{} {}", i, curr);
             curr_score += 1;
-            if i > curr {
+            if i >= curr {
                 score *= curr_score;
                 break;
             }
