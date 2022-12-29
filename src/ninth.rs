@@ -21,7 +21,10 @@ pub fn solution_a() -> i32 {
 
     let mut visited:HashSet<[usize;2]> = HashSet::new();
 
-    let mut pos:[usize;2] = [0,0];
+    let mut pos:[usize;2] = [100,100];
+
+    let mut head = pos;
+    let mut tail = pos;
 
 
     for line in reader.lines() {
@@ -39,23 +42,36 @@ pub fn solution_a() -> i32 {
         match (dir, num.parse::<usize>().unwrap()) {
             ("R", n) => {
                 for i in [pos[0]..n] {
-                    pos[0] += 1;
-                    visited.insert(pos);
+                    tail = pos;
+                    pos = head;
+                    head[0] += 1;
+                    let x_diff = head[0].abs_diff(tail[0]);
+                    let y_diff = head[1].abs_diff(tail[1]);
+                    if x_diff == 1 && y_diff == 0 {
+                        continue;
+                    }
+                    visited.insert(tail);
                 }
             },
             ("L", n) => {
                 for i in [pos[0]..n] {
-                    pos[0] -= 1;
+                    tail = pos;
+                    pos = head;
+                    head[0] += 1;
                 }
             },
             ("U", n) => {
                 for i in [pos[1]..n] {
-                    pos[1] += 1;
+                    tail = pos;
+                    pos = head;
+                    head[0] += 1;
                 }
             },
             ("D", n) => {
                 for i in [pos[1]..n] {
-                    pos[1] -= 1;
+                    tail = pos;
+                    pos = head;
+                    head[0] += 1;
                 }
             },
             _ => (),
