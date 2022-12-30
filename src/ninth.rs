@@ -19,13 +19,13 @@ pub fn solution_a() -> i32 {
     let file = File::open("inputs/9_test").unwrap();
     let reader = BufReader::new(file);
 
-    let mut visited:HashSet<[usize;2]> = HashSet::new();
+    let mut visited:HashSet<[i32;2]> = HashSet::new();
 
-    let mut head_visited:HashSet<[usize;2]> = HashSet::new();
+    let mut head_visited:HashSet<[i32;2]> = HashSet::new();
 
 
 
-    let mut pos:[usize;2] = [0,0];
+    let mut pos:[i32;2] = [0,0];
 
     let mut head = pos;
     let mut tail = pos;
@@ -43,11 +43,9 @@ pub fn solution_a() -> i32 {
 
 
 
-
-        let mut slice= [0..0];
-        match (dir, num.parse::<usize>().unwrap()) {
+        let (vertical, opposite, slice) = match (dir, num.parse::<i32>().unwrap()) {
             ("R", n) => {
-                slice = [pos[0]..n];
+                (false, false, (0..n).collect::<Vec<i32>>())
                 // for i in [pos[0]..n] {
                 //     head[0] += 1;
                 //     let x_diff = head[0].abs_diff(tail[0]);
@@ -59,7 +57,7 @@ pub fn solution_a() -> i32 {
                 // }
             },
             ("L", n) => {
-                slice = [pos[0]..n];
+                (false, true, (0..n).collect::<Vec<i32>>())
                 // for i in [pos[0]..n] {
                 //     tail = pos;
                 //     pos = head;
@@ -67,7 +65,7 @@ pub fn solution_a() -> i32 {
                 // }
             },
             ("U", n) => {
-                slice = [pos[1]..n];
+                (true, false, (0..n).collect::<Vec<i32>>())
                 // for i in [pos[1]..n] {
                 //     tail = pos;
                 //     pos = head;
@@ -75,28 +73,37 @@ pub fn solution_a() -> i32 {
                 // }
             },
             ("D", n) => {
-                slice = [pos[1]..n];
+                (true, true, (0..n).collect::<Vec<i32>>())
                 // for i in [pos[1]..n] {
                 //     tail = pos;
                 //     pos = head;
                 //     head[1] -= 1;
                 // }
             },
-            _ => (),
+            _ => { continue; },
+        };
+
+        println!("{} {:?}", dir, slice);
+
+        match (vertical, opposite) {
+            (true, true) => {},
+            (true, false) => {},
+            (false, true) => {},
+            (false, false) => {},
         }
 
-        for _ in slice {
-            tail = pos;
-            pos = head;
-            head[0] += 1;
-            head_visited.insert(head);
-            let x_diff = head[0].abs_diff(tail[0]);
-            let y_diff = head[1].abs_diff(tail[1]);
-            if x_diff == 1 && y_diff == 0 {
-                continue;
-            }
-            visited.insert(tail);
-        }
+        // for _ in slice {
+        //     tail = pos;
+        //     pos = head;
+        //     head[0] += 1;
+        //     head_visited.insert(head);
+        //     let x_diff = head[0].abs_diff(tail[0]);
+        //     let y_diff = head[1].abs_diff(tail[1]);
+        //     if x_diff == 1 && y_diff == 0 {
+        //         continue;
+        //     }
+        //     visited.insert(tail);
+        // }
     }
     println!("{:?}", head_visited);
     println!("{:?}", visited);
