@@ -30,7 +30,7 @@ pub fn solution_a() -> i32 {
 
 
 
-    let mut pos:[i32;2] = [0,0];
+    let mut pos:[i32;2] = [0,4];
 
     let mut head = pos;
     let mut tail = pos;
@@ -72,7 +72,7 @@ pub fn solution_a() -> i32 {
                 // }
             },
             ("U", n) => {
-                (true, false, (0..n).collect::<Vec<i32>>())
+                (true, true, (0..n).collect::<Vec<i32>>())
                 // for i in [pos[1]..n] {
                 //     tail = pos;
                 //     pos = head;
@@ -80,7 +80,7 @@ pub fn solution_a() -> i32 {
                 // }
             },
             ("D", n) => {
-                (true, true, (0..n).collect::<Vec<i32>>())
+                (true, false, (0..n).collect::<Vec<i32>>())
                 // for i in [pos[1]..n] {
                 //     tail = pos;
                 //     pos = head;
@@ -123,25 +123,35 @@ pub fn solution_a() -> i32 {
     println!("{:?}", head_visited);
 
 
-    visited.push([0,0]);
-    let mut last = visited[0];
-
-    for (ind, cell) in head_visited.iter().enumerate() {
-        let cell = *cell;
-        println!("{:?} {:?}", cell, last);
-        if ind == head_visited.len() -2 {
-            visited.push(cell);
-            break;
-        }
-        let x_diff = cell[0].abs_diff(last[0]);
-        let y_diff = cell[1].abs_diff(last[1]);
+    visited.push(pos);
+    let mut tail = head_visited[0];
+    let mut last = head_visited[1];
+    let mut ind = 2;
+    loop {
+        let cell = head_visited[ind];
+        println!("{:?} {:?} {:?}", tail, last, cell);
+        let x_diff = cell[0].abs_diff(tail[0]);
+        let y_diff = cell[1].abs_diff(tail[1]);
         if x_diff == 1 && y_diff == 1 {
+            visited.push(tail);
             visited.push(cell);
+            ind += 2;
+            last = head_visited[ind-1];
+            tail = head_visited[ind-2];
+        } else {
+            visited.push(tail);
+            tail = last;
+            last = cell;
+            ind += 1;
         }
-        visited.push(cell);
-        last = cell;
+    }
+
+    for (ind, cell) in head_visited[2..].iter().enumerate() {
+
+
     }
     println!("{:?}", visited);
 
+    visited.dedup();
     visited.len() as i32
 }
