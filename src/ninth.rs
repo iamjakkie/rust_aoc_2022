@@ -2,11 +2,10 @@ use std::collections::HashSet;
 use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 
-pub fn solution_a() -> i32 {
+fn get_head_path() -> Vec<[i32;2]> {
     let file = File::open("inputs/9").unwrap();
     let reader = BufReader::new(file);
 
-    let mut visited: Vec<[i32; 2]> = Vec::new();
     let mut head_visited: Vec<[i32; 2]> = Vec::new();
 
     let mut head = [0, 4];
@@ -57,6 +56,13 @@ pub fn solution_a() -> i32 {
         }
     }
 
+    head_visited
+}
+
+pub fn solution_a() -> i32 {
+    let head_visited = get_head_path();
+    let mut visited: Vec<[i32; 2]> = Vec::new();
+
     visited.push(head_visited[0]);
     let mut tail = head_visited[0];
     let mut last = head_visited[1];
@@ -84,4 +90,10 @@ pub fn solution_a() -> i32 {
     visited.sort();
     visited.dedup();
     visited.len() as i32
+}
+
+pub fn solution_b() -> i32 {
+    let head_visited = get_head_path();
+
+
 }
