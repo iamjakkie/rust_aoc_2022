@@ -17,7 +17,7 @@ D->L -> skip last D
  */
 
 pub fn solution_a() -> i32 {
-    let file = File::open("inputs/9_test").unwrap();
+    let file = File::open("inputs/9").unwrap();
     let reader = BufReader::new(file);
 
     // let mut visited:IndexSet<[i32;2]> = IndexSet::new();
