@@ -4,11 +4,11 @@ mod eighth;
 mod fifth;
 mod first;
 mod fourth;
+mod ninth;
 mod second;
 mod seventh;
 mod sixth;
 mod third;
-mod ninth;
 
 fn main() {
     // println!("1_1: {}",first::solution_a());

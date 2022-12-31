@@ -143,7 +143,11 @@ pub fn solution_b() -> i32 {
     loop {
         let left: Vec<usize> = area[i_x][0..i_y].iter().rev().map(|x| *x).collect();
         let right: Vec<usize> = area[i_x][i_y + 1..=max_y].iter().map(|x| *x).collect();
-        let up = area[0..i_x].iter().rev().map(|x| x[i_y]).collect::<Vec<usize>>();
+        let up = area[0..i_x]
+            .iter()
+            .rev()
+            .map(|x| x[i_y])
+            .collect::<Vec<usize>>();
         let down = area[i_x + 1..=max_x]
             .iter()
             .map(|x| x[i_y])
