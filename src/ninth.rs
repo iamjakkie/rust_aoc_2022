@@ -95,5 +95,18 @@ pub fn solution_a() -> i32 {
 pub fn solution_b() -> i32 {
     let head_visited = get_head_path();
 
+    let mut visited: Vec<[i32; 2]> = Vec::new();
+
+    let mut snake:[[i32;2];9] = [[0;2];9];
+
+    for i in head_visited {
+        let last = snake[snake.len() - 1];
+        let x_diff = i[0].abs_diff(last[0]);
+        let y_diff = i[1].abs_diff(last[1]);
+
+
+    }
+
+    0
 
 }
