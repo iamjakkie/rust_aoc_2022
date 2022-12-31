@@ -90,7 +90,7 @@ pub fn solution_a() -> i32 {
             _ => { continue; },
         };
 
-        println!("{} {:?}", dir, slice);
+        // println!("{} {:?}", dir, slice);
 
         match (vertical, opposite) {
             (true, true) => {
@@ -120,7 +120,7 @@ pub fn solution_a() -> i32 {
         }
 
     }
-    println!("{:?}", head_visited);
+    // println!("{:?}", head_visited);
 
 
     visited.push(pos);
@@ -128,20 +128,24 @@ pub fn solution_a() -> i32 {
     let mut last = head_visited[1];
     let mut ind = 2;
     loop {
+        if ind >= head_visited.len() {
+            break;
+        }
         let cell = head_visited[ind];
-        println!("{:?} {:?} {:?}", tail, last, cell);
+        // println!("{:?} {:?} {:?}", tail, last, cell);
         let x_diff = cell[0].abs_diff(tail[0]);
         let y_diff = cell[1].abs_diff(tail[1]);
-        if x_diff+y_diff < 2 {
+        if (x_diff < 2 && y_diff < 2) {
+            last = cell;
             ind+=1;
             continue;
-        }
-        if x_diff == 1 && y_diff == 1 {
-            visited.push(tail);
-            visited.push(cell);
-            ind += 2;
-            last = head_visited[ind-1];
-            tail = head_visited[ind-2];
+
+        // if x_diff == 1 && y_diff == 1 {
+        //     visited.push(tail);
+        //     visited.push(cell);
+        //     ind += 2;
+        //     last = head_visited[ind-1];
+        //     tail = head_visited[ind-2];
         } else {
             visited.push(tail);
             tail = last;
@@ -149,13 +153,16 @@ pub fn solution_a() -> i32 {
             ind += 1;
         }
     }
+    visited.push(tail);
+    //
+    // for (ind, cell) in head_visited[2..].iter().enumerate() {
+    //
+    //
+    // }
+    // println!("{:?}", visited);
 
-    for (ind, cell) in head_visited[2..].iter().enumerate() {
-
-
-    }
-    println!("{:?}", visited);
-
+    visited.sort();
     visited.dedup();
+    // println!("{:?}", visited);
     visited.len() as i32
 }
