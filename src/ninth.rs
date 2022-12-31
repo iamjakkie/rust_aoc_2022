@@ -132,6 +132,10 @@ pub fn solution_a() -> i32 {
         println!("{:?} {:?} {:?}", tail, last, cell);
         let x_diff = cell[0].abs_diff(tail[0]);
         let y_diff = cell[1].abs_diff(tail[1]);
+        if x_diff+y_diff < 2 {
+            ind+=1;
+            continue;
+        }
         if x_diff == 1 && y_diff == 1 {
             visited.push(tail);
             visited.push(cell);
