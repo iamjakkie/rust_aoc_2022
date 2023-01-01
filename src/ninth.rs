@@ -3,7 +3,7 @@ use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 
 fn get_head_path() -> Vec<[i32;2]> {
-    let file = File::open("inputs/9").unwrap();
+    let file = File::open("inputs/9_test").unwrap();
     let reader = BufReader::new(file);
 
     let mut head_visited: Vec<[i32; 2]> = Vec::new();
@@ -95,16 +95,35 @@ pub fn solution_a() -> i32 {
 pub fn solution_b() -> i32 {
     let head_visited = get_head_path();
 
+    println!("{:?}", head_visited);
     let mut visited: Vec<[i32; 2]> = Vec::new();
 
-    let mut snake:[[i32;2];9] = [[0;2];9];
-
-    for i in head_visited {
-        let last = snake[snake.len() - 1];
-        let x_diff = i[0].abs_diff(last[0]);
-        let y_diff = i[1].abs_diff(last[1]);
+    let mut snake:[[i32;2];9] = [[0,4];9];
+    let mut last_snake;
+    let mut last = head_visited[0];
 
 
+    for cell in head_visited {
+        last_snake = snake[snake.len() - 1];
+        let x_diff = cell[0].abs_diff(last_snake[0]);
+        let y_diff = cell[1].abs_diff(last_snake[1]);
+        // println!("Last: {:?}, curr: {:?}, to_insert: {:?}", last_snake, cell, last);
+
+        if (x_diff < 2 && y_diff < 2) {
+            last = cell;
+            continue;
+        } else {
+            visited.push(snake[0]);
+            for val in snake.iter().rev() {
+
+            }
+            let mut snake_temp:[[i32;2];9] = [[0;2];9];
+            snake_temp[0..8].copy_from_slice(&snake[1..]);
+            snake_temp[8] = last;
+            snake = snake_temp;
+            last = cell;
+        }
+        println!("{:?}", snake);
     }
 
     0
