@@ -60,50 +60,18 @@ fn make_moves(moves: Vec<[i32;2]>, len: usize) -> Vec<[i32;2]>{
 pub fn solution_a() -> i32 {
     let head_visited = get_head_path();
     let mut visited = make_moves(head_visited, 2);
-    // println!("{:?}", visited);
     visited.sort();
     visited.dedup();
-    // println!("{:?}", visited);
 
     visited.len() as i32
 }
 
-// pub fn solution_b() -> i32 {
-//     let head_visited = get_head_path();
-//
-//     println!("{:?}", head_visited);
-//     let mut visited: Vec<[i32; 2]> = Vec::new();
-//
-//     let mut snake:[[i32;2];9] = [[0,4];9];
-//     let mut last_snake;
-//     let mut last = head_visited[0];
-//
-//
-//     for cell in head_visited {
-//         last_snake = snake[snake.len() - 1];
-//         let to_move = has_to_move(&cell, &last_snake);
-//         // println!("Last: {:?}, curr: {:?}, to_insert: {:?}", last_snake, cell, last);
-//
-//         if to_move {
-//             last = cell;
-//             continue;
-//         } else {
-//             visited.push(snake[0]);
-//             let mut prev;
-//             for val in snake.iter().rev() {
-//                 if prev {
-//
-//                 }
-//             }
-//             let mut snake_temp:[[i32;2];9] = [[0;2];9];
-//             snake_temp[0..8].copy_from_slice(&snake[1..]);
-//             snake_temp[8] = last;
-//             snake = snake_temp;
-//             last = cell;
-//         }
-//         println!("{:?}", snake);
-//     }
-//
-//     0
-//
-// }
+
+pub fn solution_b() -> i32 {
+    let head_visited = get_head_path();
+    let mut visited = make_moves(head_visited, 10);
+    visited.sort();
+    visited.dedup();
+
+    visited.len() as i32
+}
