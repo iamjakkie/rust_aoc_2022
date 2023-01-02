@@ -3,7 +3,7 @@ use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 
 fn get_head_path() -> Vec<[i32;2]> {
-    let file = File::open("inputs/9_test").unwrap();
+    let file = File::open("inputs/9").unwrap();
     let reader = BufReader::new(file);
 
     let mut moves: Vec<[i32; 2]> = Vec::new();
@@ -23,7 +23,6 @@ fn get_head_path() -> Vec<[i32;2]> {
             }
         }
     }
-
     moves
 }
 
@@ -44,12 +43,11 @@ fn make_moves(moves: Vec<[i32;2]>, len: usize) -> Vec<[i32;2]>{
     for [mx, my] in moves {
         snake[0][0] += mx;
         snake[0][1] += my;
-
         for i in 1..len {
-            let dx = snake[i - 1][0].abs_diff(snake[i][0]) as i32;
-            let dy = snake[i - 1][1].abs_diff(snake[i][1]) as i32;
-            if dx < 2 && dy < 2 { continue; }
-
+            let dx = snake[i - 1][0]-snake[i][0] as i32;
+            let dy = snake[i - 1][1]-snake[i][1] as i32;
+            if dx.abs() < 2 && dy.abs() < 2 { continue; }
+            // println!("{}, sig:{}; {}, sig:{}", dx, dx.signum(), dy, dy.signum());
             if dx != 0 { snake[i][0] += dx.signum(); }
             if dy != 0 { snake[i][1] += dy.signum(); }
         }
@@ -61,10 +59,12 @@ fn make_moves(moves: Vec<[i32;2]>, len: usize) -> Vec<[i32;2]>{
 
 pub fn solution_a() -> i32 {
     let head_visited = get_head_path();
-    let mut visited = make_moves(head_visited, 1);
-
+    let mut visited = make_moves(head_visited, 2);
+    // println!("{:?}", visited);
     visited.sort();
     visited.dedup();
+    // println!("{:?}", visited);
+
     visited.len() as i32
 }
 
