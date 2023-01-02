@@ -3,7 +3,7 @@ use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 
 fn parse_input() -> HashMap<usize, i32> {
-    let file = File::open("inputs/10_test").unwrap();
+    let file = File::open("inputs/10").unwrap();
     let reader = BufReader::new(file);
 
     // let mut ops = vec![(0,1)];
