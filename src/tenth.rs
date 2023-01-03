@@ -3,7 +3,7 @@ use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 
 fn parse_input() -> HashMap<usize, i32> {
-    let file = File::open("inputs/10").unwrap();
+    let file = File::open("inputs/10_test").unwrap();
     let reader = BufReader::new(file);
 
     // let mut ops = vec![(0,1)];
@@ -68,19 +68,31 @@ pub fn solution_b() -> String{
     let ops = parse_input();
     let mut pix = 0;
 
+    let mut ind = 1;
 
-
-    for cell in ops {
+    loop {
         let x = pix % COLS as i32;
-        if x >= cell.1 - 1 && x <= cell.1 + 1 {
+        if x >= ops.get(&ind).unwrap() - 1 && x <= ops.get(&ind).unwrap() + 1 {
             // crt[pix as usize] = '#';
             print!("X ");
+        } else {
+            print!("  ");
         }
 
         pix += 1;
         if pix % COLS as i32 == 0 {
             println!("");
         }
+
+        ind += 1;
+        if ind == ops.len() {
+            break;
+        }
+    }
+
+
+    for ind in [0..ops.len()] {
+
     }
 
 
