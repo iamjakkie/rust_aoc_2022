@@ -58,3 +58,16 @@ pub fn solution_a() -> i32 {
 
     a+b+c+d+e+f
 }
+
+pub fn solution_b() -> String{
+    const COLS:u16 = 40;
+    const ROWS:u16 = 6;
+
+    let ops = parse_input();
+
+    let mut crt = [['.';COLS as usize];ROWS as usize];
+
+    println!("{:?}", crt);
+
+    String::from("Test")
+}

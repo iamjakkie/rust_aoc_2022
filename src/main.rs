@@ -30,5 +30,7 @@ fn main() {
     // println!("8_2: {}", eighth::solution_b());
     // println!("9_1: {}", ninth::solution_a());
     // println!("9_2: {}", ninth::solution_b());
-    println!("10_1: {}", tenth::solution_a());
+    // println!("10_1: {}", tenth::solution_a());
+    println!("10_2: {}", tenth::solution_b());
+
 }
