@@ -63,9 +63,27 @@ pub fn solution_b() -> String{
     const COLS:u16 = 40;
     const ROWS:u16 = 6;
 
-    let ops = parse_input();
+    let mut crt = ['.';COLS as usize*ROWS as usize];
 
-    let mut crt = [['.';COLS as usize];ROWS as usize];
+    let ops = parse_input();
+    let mut pix = 0;
+
+
+
+    for cell in ops {
+        let x = pix % COLS as i32;
+        if x >= cell.1 - 1 && x <= cell.1 + 1 {
+            // crt[pix as usize] = '#';
+            print!("X ");
+        }
+
+        pix += 1;
+        if pix % COLS as i32 == 0 {
+            println!("");
+        }
+    }
+
+
 
     println!("{:?}", crt);
 
