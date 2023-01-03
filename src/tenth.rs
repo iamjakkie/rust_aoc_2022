@@ -3,7 +3,7 @@ use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 
 fn parse_input() -> HashMap<usize, i32> {
-    let file = File::open("inputs/10_test").unwrap();
+    let file = File::open("inputs/10").unwrap();
     let reader = BufReader::new(file);
 
     // let mut ops = vec![(0,1)];
@@ -60,44 +60,27 @@ pub fn solution_a() -> i32 {
 }
 
 pub fn solution_b() -> String{
+
+    let ops = parse_input();
     const COLS:u16 = 40;
     const ROWS:u16 = 6;
 
-    let mut crt = ['.';COLS as usize*ROWS as usize];
+    for ind in 0..COLS*ROWS {
+        let val = (ind%COLS) as i32;
+        let x = ops.get(&((ind+1) as usize)).unwrap();
+        // let out = if (val >= x-1 && val <= x+1) { 'X' } else { '.' };
+        // println!("ind: {}, x: {}, out: {}", ind, x, out);
+        if val == 0 {
+            println!("")
+        }
 
-    let ops = parse_input();
-    let mut pix = 0;
-
-    let mut ind = 1;
-
-    loop {
-        let x = pix % COLS as i32;
-        if x >= ops.get(&ind).unwrap() - 1 && x <= ops.get(&ind).unwrap() + 1 {
-            // crt[pix as usize] = '#';
+        if val >= x-1 && val <= x+1 {
             print!("X ");
         } else {
             print!("  ");
         }
-
-        pix += 1;
-        if pix % COLS as i32 == 0 {
-            println!("");
-        }
-
-        ind += 1;
-        if ind == ops.len() {
-            break;
-        }
     }
 
-
-    for ind in [0..ops.len()] {
-
-    }
-
-
-
-    println!("{:?}", crt);
 
     String::from("Test")
 }
