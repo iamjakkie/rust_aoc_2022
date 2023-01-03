@@ -6,7 +6,6 @@ fn parse_input() -> HashMap<usize, i32> {
     let file = File::open("inputs/10").unwrap();
     let reader = BufReader::new(file);
 
-    // let mut ops = vec![(0,1)];
     let mut ops:HashMap<usize, i32> = HashMap::from([(1,1)]);
     let mut last = (1 as usize,1);
 
@@ -32,8 +31,6 @@ fn parse_input() -> HashMap<usize, i32> {
             _ => {continue;}
         }
 
-
-        // println!("{:?}", ops);
     }
 
     ops
@@ -68,8 +65,6 @@ pub fn solution_b() -> String{
     for ind in 0..COLS*ROWS {
         let val = (ind%COLS) as i32;
         let x = ops.get(&((ind+1) as usize)).unwrap();
-        // let out = if (val >= x-1 && val <= x+1) { 'X' } else { '.' };
-        // println!("ind: {}, x: {}, out: {}", ind, x, out);
         if val == 0 {
             println!("")
         }
@@ -80,7 +75,7 @@ pub fn solution_b() -> String{
             print!("  ");
         }
     }
+    println!("");
 
-
-    String::from("Test")
+    String::from("Done")
 }
