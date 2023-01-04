@@ -25,7 +25,7 @@ impl fmt::Display for Monkey {
     }
 }
 
-fn parse_input() {
+fn parse_input() -> Vec<Monkey>{
     let file = File::open("inputs/11_test").unwrap();
     let reader = BufReader::new(file);
     let mut ind = 0;
@@ -93,14 +93,21 @@ fn parse_input() {
                 ind = 0;
             }
         }
-        println!("{}", line);
     }
-    println!("{:?}", monkeys);
+    monkeys
 
 }
 
 pub fn solution_a() -> String{
-    parse_input();
+    let monkeys = parse_input();
+
+    for monkey in monkeys {
+        let op = monkey.operation.replace("old", );
+
+        for item in monkey.items {
+
+        }
+    }
 
     String::from("OK")
 }
