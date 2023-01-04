@@ -28,19 +28,21 @@ impl fmt::Display for Monkey {
 fn parse_input() {
     let file = File::open("inputs/11_test").unwrap();
     let reader = BufReader::new(file);
-    let mut ind = 1;
+    let mut ind = 0;
 
     let mut monkeys: Vec<Monkey> = Vec::new();
+
+    let mut id:usize = 0;
+    let mut starting_items:Vec<i32> = Vec::new();
+    let mut operation = String::new();
+    let mut test:i32 = 0;
+    let mut true_output:usize = 0;
+    let mut false_output:usize = 0;
 
     for line in reader.lines() {
         let mut line = line.unwrap();
         line = String::from(line.trim());
-        let mut id:usize = 0;
-        let mut starting_items:Vec<i32> = Vec::new();
-        let mut operation = String::new();
-        let mut test:i32 = 0;
-        let mut true_output:usize = 0;
-        let mut false_output:usize = 0;
+        ind += 1;
         match ind {
             1 => {
                 let mut split = line.split(" ");
@@ -75,23 +77,26 @@ fn parse_input() {
                 false_output = monkey_num.parse::<usize>().unwrap();
             },
             _ => {
+                // println!("id {} op {} test {} items {:?} true {} false {}",
+                // id, operation, test, starting_items, true_output, false_output);
+                let mut items = vec![];
+                starting_items.clone_into(&mut items);
                 let monkey = Monkey{
                     id:id,
-                    operation:operation,
+                    operation: String::from(&operation),
                     test_divisible_by: test,
-                    items:starting_items,
+                    items: items,
                     true_output:true_output,
                     false_output:false_output
                 };
-                println!("{:?}", monkey);
                 monkeys.push(monkey);
-                println!("{:?}", monkeys);
                 ind = 0;
             }
         }
-        ind += 1;
         println!("{}", line);
     }
+    println!("{:?}", monkeys);
+
 }
 
 pub fn solution_a() -> String{
