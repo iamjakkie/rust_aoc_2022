@@ -7,9 +7,9 @@ use std::io::{self, prelude::*, BufReader};
 #[derive(Debug)]
 struct Monkey {
     id: usize,
-    items: Vec<i32>,
+    items: Vec<u32>,
     operation: String,
-    test_divisible_by: i32,
+    test_divisible_by: u32,
     true_output: usize,
     false_output: usize,
 }
@@ -33,9 +33,9 @@ fn parse_input() -> Vec<Monkey>{
     let mut monkeys: Vec<Monkey> = Vec::new();
 
     let mut id:usize = 0;
-    let mut starting_items:Vec<i32> = Vec::new();
+    let mut starting_items:Vec<u32> = Vec::new();
     let mut operation = String::new();
-    let mut test:i32 = 0;
+    let mut test:u32 = 0;
     let mut true_output:usize = 0;
     let mut false_output:usize = 0;
 
@@ -53,7 +53,7 @@ fn parse_input() -> Vec<Monkey>{
             2 => {
                 let mut split = line.split(": ");
                 let (_, items) = (split.next().unwrap(), split.next().unwrap());
-                starting_items = items.split(", ").into_iter().map(|x| x.parse::<i32>().unwrap()).collect();
+                starting_items = items.split(", ").into_iter().map(|x| x.parse::<u32>().unwrap()).collect();
             },
             3 => {
                 let mut split = line.split("= old ");
@@ -63,7 +63,7 @@ fn parse_input() -> Vec<Monkey>{
             4 => {
                 let mut split = line.split("by ");
                 let (_, num) = (split.next().unwrap(), split.next().unwrap());
-                let num = num.trim().parse::<i32>().unwrap();
+                let num = num.trim().parse::<u32>().unwrap();
                 test = num;
             },
             5 => {
@@ -99,13 +99,27 @@ fn parse_input() -> Vec<Monkey>{
 }
 
 pub fn solution_a() -> String{
-    let monkeys = parse_input();
+    let mut monkeys = parse_input();
 
-    for monkey in monkeys {
-        let op = monkey.operation.replace("old", );
+    for monkey in monkeys.iter_mut() {
+        let (op, num) = monkey.operation.split_once(" ").unwrap();
+        let mut num = num.chars().next().unwrap();
 
-        for item in monkey.items {
+        for item in monkey.items.iter_mut() {
+            let parsed_num = num.to_digit(10);
+            let parsed_num = match parsed_num {
+                Some(num) => num,
+                _ => *item
+            };
+            match op {
+                "+" => {
 
+                },
+                "-" => {},
+                "*" => {},
+                "/" => {},
+                _ => { continue; }
+            }
         }
     }
 
