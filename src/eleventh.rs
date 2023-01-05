@@ -100,7 +100,7 @@ fn parse_input() -> Vec<Monkey>{
 
 pub fn solution_a() -> String{
     let mut monkeys = parse_input();
-
+    //todo change to indexes
     for monkey in monkeys.iter_mut() {
         let (op, num) = monkey.operation.split_once(" ").unwrap();
         let mut num = num.chars().next().unwrap();
