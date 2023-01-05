@@ -101,27 +101,59 @@ fn parse_input() -> Vec<Monkey>{
 pub fn solution_a() -> String{
     let mut monkeys = parse_input();
     //todo change to indexes
-    for monkey in monkeys.iter_mut() {
+    for i in (0..monkeys.len()-1) {
+        let mut monkey = monkeys.get_mut(i).unwrap();
         let (op, num) = monkey.operation.split_once(" ").unwrap();
         let mut num = num.chars().next().unwrap();
 
-        for item in monkey.items.iter_mut() {
+        for j in (0..monkey.items.len()-1) {
+            let curr_val = monkey.items.get_mut(j).unwrap().clone();
             let parsed_num = num.to_digit(10);
             let parsed_num = match parsed_num {
-                Some(num) => num,
-                _ => *item
+                Some(num) => num ,
+                _ => curr_val
             };
-            match op {
-                "+" => {
-
-                },
-                "-" => {},
-                "*" => {},
-                "/" => {},
+            let res = match op {
+                "+" => curr_val + parsed_num,
+                "-" => curr_val - parsed_num,
+                "*" => curr_val * parsed_num,
+                "/" => curr_val / parsed_num,
                 _ => { continue; }
+            };
+            let mut target:usize = i;
+
+            if res % monkey.test_divisible_by == 0 {
+                // monkeys[monkey.true_output].items.push(res);
+                target = monkey.true_output;
+            } else {
+                target = monkey.false_output;
             }
+
+            monkeys[target].items.push(res);
         }
     }
+
+    // for monkey in monkeys.iter_mut() {
+    //     let (op, num) = monkey.operation.split_once(" ").unwrap();
+    //     let mut num = num.chars().next().unwrap();
+    //
+    //     for item in monkey.items.iter_mut() {
+    //         let parsed_num = num.to_digit(10);
+    //         let parsed_num = match parsed_num {
+    //             Some(num) => num,
+    //             _ => *item
+    //         };
+    //         match op {
+    //             "+" => {
+    //
+    //             },
+    //             "-" => {},
+    //             "*" => {},
+    //             "/" => {},
+    //             _ => { continue; }
+    //         }
+    //     }
+    // }
 
     String::from("OK")
 }
