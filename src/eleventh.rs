@@ -1,10 +1,11 @@
+use std::borrow::BorrowMut;
 use std::collections::HashMap;
 use std::fmt;
 use std::fmt::Formatter;
 use std::fs::File;
 use std::io::{self, prelude::*, BufReader};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Monkey {
     id: usize,
     items: Vec<u32>,
@@ -99,10 +100,11 @@ fn parse_input() -> Vec<Monkey>{
 }
 
 pub fn solution_a() -> String{
-    let mut monkeys = parse_input();
+    let mut monkeys = &mut parse_input();
     //todo change to indexes
     for i in (0..monkeys.len()-1) {
-        let mut monkey = monkeys.get_mut(i).unwrap();
+        // let mut monkey = monkeys.get_mut(i).unwrap();
+        let mut monkey = &mut monkeys[i];
         let (op, num) = monkey.operation.split_once(" ").unwrap();
         let mut num = num.chars().next().unwrap();
 
@@ -131,6 +133,7 @@ pub fn solution_a() -> String{
 
             monkeys[target].items.push(res);
         }
+        println!("{:?}", monkeys);
     }
 
     // for monkey in monkeys.iter_mut() {
