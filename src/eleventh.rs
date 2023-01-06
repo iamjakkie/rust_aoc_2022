@@ -101,41 +101,54 @@ fn parse_input() -> Vec<Monkey>{
 
 pub fn solution_a() -> String{
     let mut monkeys = &mut parse_input();
-    println!("{:?}", monkeys);
-    for i in (0..monkeys.len()) {
-        // let mut monkey = monkeys.get_mut(i).unwrap();
-        let mut monkey = &mut monkeys[i].clone();
-        let (op, num) = monkey.operation.split_once(" ").unwrap();
-        // let mut num = num.chars().next().unwrap();
+    let monkeys_cnt = monkeys.len();
+    let mut monkey_business = vec![0;monkeys_cnt];
+    for rnd in (0..21) {
+        for i in (0..monkeys.len()) {
+            // let mut monkey = monkeys.get_mut(i).unwrap();
+            let mut monkey = &mut monkeys[i].clone();
+            let (op, num) = monkey.operation.split_once(" ").unwrap();
+            // let mut num = num.chars().next().unwrap();
 
-        for j in (0..monkey.items.len()) {
-            let curr_val = monkey.items.get_mut(j).unwrap().clone();
-            let parsed_num = num.parse::<u32>().unwrap_or(curr_val);
+            for j in (0..monkey.items.len()) {
+                let curr_val = monkey.items.get_mut(j).unwrap().clone();
+                let parsed_num = num.parse::<u32>().unwrap_or(curr_val);
 
-            let res = match op {
-                "+" => curr_val + parsed_num,
-                "-" => curr_val - parsed_num,
-                "*" => curr_val * parsed_num,
-                "/" => curr_val / parsed_num,
-                _ => { continue; }
-            };
-            //todo divide by 3
-            let mut target:usize = i;
-            println!{"monkey: {}, item: {}, test: {}{} res: {}", i, curr_val, op, parsed_num, res};
+                let mut res = match op {
+                    "+" => curr_val + parsed_num,
+                    "-" => curr_val - parsed_num,
+                    "*" => curr_val * parsed_num,
+                    "/" => curr_val / parsed_num,
+                    _ => { continue; }
+                };
+                //todo divide by 3
+                res = res / 3;
+                let mut target: usize = i;
+                // println! {"monkey: {}, item: {}, test: {}{} res: {}", i, curr_val, op, parsed_num, res};
 
-            if res % monkey.test_divisible_by == 0 {
-                // monkeys[monkey.true_output].items.push(res);
-                target = monkey.true_output;
-            } else {
-                target = monkey.false_output;
+                if res % monkey.test_divisible_by == 0 {
+                    // monkeys[monkey.true_output].items.push(res);
+                    target = monkey.true_output;
+                } else {
+                    target = monkey.false_output;
+                }
+
+                monkeys[target].items.push(res)
             }
+            monkeys[i].items = vec![];
 
-            monkeys[target].items.push(res)
+            // println!("{:?}", monkeys);
         }
-        monkeys[i].items = vec![];
 
-        println!("{:?}", monkeys);
+        for i in (0..monkeys.len()) {
+            monkey_business[i] += monkeys[i].items.len();
+        }
+        println!("Round: {} = {:?}", rnd, monkeys);
+
     }
+
+
+    println!("{:?}", monkey_business);
 
     // for monkey in monkeys.iter_mut() {
     //     let (op, num) = monkey.operation.split_once(" ").unwrap();
