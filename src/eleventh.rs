@@ -101,20 +101,17 @@ fn parse_input() -> Vec<Monkey>{
 
 pub fn solution_a() -> String{
     let mut monkeys = &mut parse_input();
-    //todo change to indexes
-    for i in (0..monkeys.len()-1) {
+    println!("{:?}", monkeys);
+    for i in (0..monkeys.len()) {
         // let mut monkey = monkeys.get_mut(i).unwrap();
-        let mut monkey = &mut monkeys[i];
+        let mut monkey = &mut monkeys[i].clone();
         let (op, num) = monkey.operation.split_once(" ").unwrap();
-        let mut num = num.chars().next().unwrap();
+        // let mut num = num.chars().next().unwrap();
 
-        for j in (0..monkey.items.len()-1) {
+        for j in (0..monkey.items.len()) {
             let curr_val = monkey.items.get_mut(j).unwrap().clone();
-            let parsed_num = num.to_digit(10);
-            let parsed_num = match parsed_num {
-                Some(num) => num ,
-                _ => curr_val
-            };
+            let parsed_num = num.parse::<u32>().unwrap_or(curr_val);
+
             let res = match op {
                 "+" => curr_val + parsed_num,
                 "-" => curr_val - parsed_num,
@@ -122,7 +119,9 @@ pub fn solution_a() -> String{
                 "/" => curr_val / parsed_num,
                 _ => { continue; }
             };
+            //todo divide by 3
             let mut target:usize = i;
+            println!{"monkey: {}, item: {}, test: {}{} res: {}", i, curr_val, op, parsed_num, res};
 
             if res % monkey.test_divisible_by == 0 {
                 // monkeys[monkey.true_output].items.push(res);
@@ -131,8 +130,10 @@ pub fn solution_a() -> String{
                 target = monkey.false_output;
             }
 
-            monkeys[target].items.push(res);
+            monkeys[target].items.push(res)
         }
+        monkeys[i].items = vec![];
+
         println!("{:?}", monkeys);
     }
 
