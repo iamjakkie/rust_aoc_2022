@@ -99,17 +99,17 @@ fn parse_input() -> Vec<Monkey>{
 
 }
 
-pub fn solution_a() -> String{
+pub fn solution_a() -> usize {
     let mut monkeys = &mut parse_input();
     let monkeys_cnt = monkeys.len();
     let mut monkey_business = vec![0;monkeys_cnt];
-    for rnd in (0..21) {
+    for rnd in (0..20) {
         for i in (0..monkeys.len()) {
             // let mut monkey = monkeys.get_mut(i).unwrap();
             let mut monkey = &mut monkeys[i].clone();
             let (op, num) = monkey.operation.split_once(" ").unwrap();
             // let mut num = num.chars().next().unwrap();
-
+            monkey_business[i] += monkey.items.len();
             for j in (0..monkey.items.len()) {
                 let curr_val = monkey.items.get_mut(j).unwrap().clone();
                 let parsed_num = num.parse::<u32>().unwrap_or(curr_val);
@@ -137,40 +137,16 @@ pub fn solution_a() -> String{
             }
             monkeys[i].items = vec![];
 
+
             // println!("{:?}", monkeys);
         }
 
-        for i in (0..monkeys.len()) {
-            monkey_business[i] += monkeys[i].items.len();
-        }
-        println!("Round: {} = {:?}", rnd, monkeys);
+        // println!("Round: {} = {:?}", rnd, monkeys);
 
     }
 
-
+    monkey_business.sort();
     println!("{:?}", monkey_business);
 
-    // for monkey in monkeys.iter_mut() {
-    //     let (op, num) = monkey.operation.split_once(" ").unwrap();
-    //     let mut num = num.chars().next().unwrap();
-    //
-    //     for item in monkey.items.iter_mut() {
-    //         let parsed_num = num.to_digit(10);
-    //         let parsed_num = match parsed_num {
-    //             Some(num) => num,
-    //             _ => *item
-    //         };
-    //         match op {
-    //             "+" => {
-    //
-    //             },
-    //             "-" => {},
-    //             "*" => {},
-    //             "/" => {},
-    //             _ => { continue; }
-    //         }
-    //     }
-    // }
-
-    String::from("OK")
+    monkey_business[monkey_business.len()-1] * monkey_business[monkey_business.len()-2]
 }
