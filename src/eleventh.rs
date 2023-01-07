@@ -8,9 +8,9 @@ use std::io::{self, prelude::*, BufReader};
 #[derive(Debug, Clone)]
 struct Monkey {
     id: usize,
-    items: Vec<u32>,
+    items: Vec<u64>,
     operation: String,
-    test_divisible_by: u32,
+    test_divisible_by: u64,
     true_output: usize,
     false_output: usize,
 }
@@ -27,16 +27,16 @@ impl fmt::Display for Monkey {
 }
 
 fn parse_input() -> Vec<Monkey>{
-    let file = File::open("inputs/11_test").unwrap();
+    let file = File::open("inputs/11").unwrap();
     let reader = BufReader::new(file);
     let mut ind = 0;
 
     let mut monkeys: Vec<Monkey> = Vec::new();
 
     let mut id:usize = 0;
-    let mut starting_items:Vec<u32> = Vec::new();
+    let mut starting_items:Vec<u64> = Vec::new();
     let mut operation = String::new();
-    let mut test:u32 = 0;
+    let mut test:u64 = 0;
     let mut true_output:usize = 0;
     let mut false_output:usize = 0;
 
@@ -54,7 +54,7 @@ fn parse_input() -> Vec<Monkey>{
             2 => {
                 let mut split = line.split(": ");
                 let (_, items) = (split.next().unwrap(), split.next().unwrap());
-                starting_items = items.split(", ").into_iter().map(|x| x.parse::<u32>().unwrap()).collect();
+                starting_items = items.split(", ").into_iter().map(|x| x.parse::<u64>().unwrap()).collect();
             },
             3 => {
                 let mut split = line.split("= old ");
@@ -64,7 +64,7 @@ fn parse_input() -> Vec<Monkey>{
             4 => {
                 let mut split = line.split("by ");
                 let (_, num) = (split.next().unwrap(), split.next().unwrap());
-                let num = num.trim().parse::<u32>().unwrap();
+                let num = num.trim().parse::<u64>().unwrap();
                 test = num;
             },
             5 => {
@@ -95,6 +95,7 @@ fn parse_input() -> Vec<Monkey>{
             }
         }
     }
+    println!("{:?}", monkeys);
     monkeys
 
 }
@@ -112,9 +113,9 @@ pub fn solution_a() -> usize {
             monkey_business[i] += monkey.items.len();
             for j in (0..monkey.items.len()) {
                 let curr_val = monkey.items.get_mut(j).unwrap().clone();
-                let parsed_num = num.parse::<u32>().unwrap_or(curr_val);
+                let parsed_num = num.parse::<u64>().unwrap_or(curr_val);
 
-                let mut res = match op {
+                let mut res:u64 = match op {
                     "+" => curr_val + parsed_num,
                     "-" => curr_val - parsed_num,
                     "*" => curr_val * parsed_num,
