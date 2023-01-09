@@ -27,7 +27,7 @@ impl fmt::Display for Monkey {
 }
 
 fn parse_input() -> Vec<Monkey>{
-    let file = File::open("inputs/11").unwrap();
+    let file = File::open("inputs/11_test").unwrap();
     let reader = BufReader::new(file);
     let mut ind = 0;
 
@@ -104,7 +104,7 @@ pub fn solution_a() -> usize {
     let mut monkeys = &mut parse_input();
     let monkeys_cnt = monkeys.len();
     let mut monkey_business = vec![0;monkeys_cnt];
-    for rnd in (0..20) {
+    for rnd in (0..1) {
         for i in (0..monkeys.len()) {
             // let mut monkey = monkeys.get_mut(i).unwrap();
             let mut monkey = &mut monkeys[i].clone();
@@ -116,14 +116,13 @@ pub fn solution_a() -> usize {
                 let parsed_num = num.parse::<u64>().unwrap_or(curr_val);
 
                 let mut res:u64 = match op {
-                    "+" => curr_val + parsed_num,
-                    "-" => curr_val - parsed_num,
-                    "*" => curr_val * parsed_num,
-                    "/" => curr_val / parsed_num,
+                    "+" => (curr_val + parsed_num),
+                    "-" => (curr_val - parsed_num),
+                    "*" => (curr_val) * parsed_num,
+                    "/" => (curr_val / parsed_num),
                     _ => { continue; }
                 };
                 //todo divide by 3
-                res = res / 3;
                 let mut target: usize = i;
                 // println! {"monkey: {}, item: {}, test: {}{} res: {}", i, curr_val, op, parsed_num, res};
 
